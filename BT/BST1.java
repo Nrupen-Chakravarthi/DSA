@@ -14,29 +14,29 @@
 //        bt.prettyDisplay();
 //        System.out.println(bt.isBalanced());
 //    }
-//    public class Node{
+//    public class ListNode{
 //        int data;
-//        Node left;
-//        Node right;
+//        ListNode left;
+//        ListNode right;
 //        int height;
-//        Node(int data){
+//        ListNode(int data){
 //            this.data = data;
 //        }
 //
 //    }
-//    public Node root;
+//    public ListNode root;
 //    public void insert(int data){
 //        root = insert(data, root);
 //    }
-//    public int height(Node node){
+//    public int height(ListNode node){
 //        if(node == null){
 //            return -1;
 //        }
 //        return node.height;
 //    }
-//    public Node insert(int data, Node node){
+//    public ListNode insert(int data, ListNode node){
 //        if(node == null){
-//            node = new Node(data);
+//            node = new ListNode(data);
 //            return node;
 //        }
 //        if(data < node.data){
@@ -49,7 +49,7 @@
 //        return rotate(node);
 //    }
 //
-//    public Node rotate(Node node){
+//    public ListNode rotate(ListNode node){
 //        if(height(node.left) - height(node.right) > 1){
 //            if(height(node.left.left) - height(node.right.right) > 0){
 //                //left heavy
@@ -72,9 +72,9 @@
 //        }
 //        return node;
 //    }
-//    public Node rightRotate(Node p){
-//        Node c = p.left;
-//        Node leaf = c.right;
+//    public ListNode rightRotate(ListNode p){
+//        ListNode c = p.left;
+//        ListNode leaf = c.right;
 //        p.left = null;
 //        c.right = p;
 //        p.left = leaf;
@@ -84,9 +84,9 @@
 //
 //        return c;
 //    }
-//    public Node leftRotate(Node p){
-//        Node c = p.right;
-//        Node leaf = c.left;
+//    public ListNode leftRotate(ListNode p){
+//        ListNode c = p.right;
+//        ListNode leaf = c.left;
 //        p.right = null;
 //        c.left = p;
 //        root.right = leaf;
@@ -102,7 +102,7 @@
 //        return isBalanced(root
 //        );
 //    }
-//    public boolean isBalanced(Node node){
+//    public boolean isBalanced(ListNode node){
 //        if(node == null){
 //            return true;
 //        }
@@ -111,7 +111,7 @@
 //    public void prettyDisplay(){
 //        prettyDisplay(root, 0);
 //    }
-//    public void prettyDisplay(Node node, int level){
+//    public void prettyDisplay(ListNode node, int level){
 //        if(node == null){
 //            return;
 //        }

@@ -1,26 +1,24 @@
 package LinkedList;
 
-import Recursion.CheckArraySorted;
-
-import javax.swing.plaf.IconUIResource;
-import javax.xml.stream.events.NotationDeclaration;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.PriorityQueue;
 
 public class LL {
-    public Node head;
-    public Node tail;
+    public ListNode head;
+    public ListNode tail;
     private int size;
-    public  class Node {
+    public  class ListNode {
         private int value;
-        private Node next;
+        private ListNode next;
 
-        Node() {
+        ListNode() {
         }
-        Node(int value) {
+        ListNode(int value) {
             this.value = value;
         }
 
-        Node(int value, Node next) {
+        ListNode(int value, ListNode next) {
             this.value = value;
             this.next = next;
         }
@@ -29,7 +27,7 @@ public class LL {
         this.size = 0;
     }
     public void insertFirst(int val){
-        Node node = new Node(val);
+        ListNode node = new ListNode(val);
         node.next = head;
         head = node;
 
@@ -43,11 +41,11 @@ public class LL {
             insertFirst(value);
             return;
         }
-        Node temp = head;
+        ListNode temp = head;
         while (temp.next != null){
             temp = temp.next;
         }
-        Node node = new Node(value);
+        ListNode node = new ListNode(value);
         temp.next = node;
         tail = node;
         size += 1;
@@ -57,25 +55,25 @@ public class LL {
             insertLast(value);
             return;
         }
-        Node temp = head;
+        ListNode temp = head;
         int i = 0;
         while ( i < index - 1){
             temp = temp.next;
             i++;
         }
-        Node node = new Node(value);
+        ListNode node = new ListNode(value);
         node.next = temp.next;
         temp.next = node;
         size++;
     }
     public void deleteFirst(){
-        Node node = head.next;
+        ListNode node = head.next;
         head = node;
         size--;
     }
 
     public void deleteLast(){
-        Node node = head;
+        ListNode node = head;
         while (node.next.next != null){
             node = node.next;
         }
@@ -85,7 +83,7 @@ public class LL {
     }
 
     public void deleteAtIndex(int index){
-        Node temp = head;
+        ListNode temp = head;
         for(int i = 0; i < index - 2; i++){
             temp = temp.next;
         }
@@ -93,15 +91,15 @@ public class LL {
         size--;
     }
     public void display(){
-        Node temp = head;
+        ListNode temp = head;
         while (temp != null){
             System.out.println(temp.value);
             temp = temp.next;
         }
     }
     public static LL mergeTwoLists(LL list1, LL list2){
-        Node f = list1.head;
-        Node s = list2.head;
+        ListNode f = list1.head;
+        ListNode s = list2.head;
         LL ans = new LL();
         while (f != null && s != null){
             if(f.value < s.value){
@@ -123,9 +121,9 @@ public class LL {
         }
         return ans;
     }
-    public boolean hasCycle(Node head){
-        HashMap<Node, Integer> ans = new HashMap<Node, Integer>();
-        Node temp = head;
+    public boolean hasCycle(ListNode head){
+        HashMap<ListNode, Integer> ans = new HashMap<ListNode, Integer>();
+        ListNode temp = head;
         while (temp != null){
             ans.put(temp, ans.getOrDefault(temp, 0) + 1);
             if(ans.get(temp) > 1){
@@ -135,9 +133,9 @@ public class LL {
         }
         return false;
     }
-    public boolean hasCycleOrNot(Node head){
-        Node slow = head;
-        Node fast = head;
+    public boolean hasCycleOrNot(ListNode head){
+        ListNode slow = head;
+        ListNode fast = head;
         while (fast != null && fast.next != null){
             slow = slow.next;
             fast = fast.next.next;
@@ -147,14 +145,14 @@ public class LL {
         }
         return false;
     }
-    public int getLengthOfCycle(Node head){
-        Node slow = head;
-        Node fast = head;
+    public int getLengthOfCycle(ListNode head){
+        ListNode slow = head;
+        ListNode fast = head;
         while (fast != null && fast.next != null){
             slow = slow.next;
             fast = fast.next.next;
             if(fast == slow){
-                Node temp = slow;
+                ListNode temp = slow;
                 int len = 0;
                 do {
                     temp = temp.next;
@@ -165,10 +163,10 @@ public class LL {
         }
         return 0;
     }
-    public Node detectCycleStartNode(Node head){
+    public ListNode detectCycleStartNode(ListNode head){
         int length = 0;
-        Node slow = head;
-        Node fast = head;
+        ListNode slow = head;
+        ListNode fast = head;
         while (fast != null && fast.next != null){
             slow = slow.next;
             fast = fast.next.next;
@@ -176,8 +174,8 @@ public class LL {
                 length = getLengthOfCycle(head);
             }
         }
-        Node f = head;
-        Node s = head;
+        ListNode f = head;
+        ListNode s = head;
 
         while (length > 0){
             s = s.next;
@@ -193,9 +191,9 @@ public class LL {
 
 
 
-    public Node merge(Node list1, Node list2){
-        Node dummyHead = new Node();
-        Node newTail = dummyHead;
+    public ListNode merge(ListNode list1, ListNode list2){
+        ListNode dummyHead = new ListNode();
+        ListNode newTail = dummyHead;
         while (list1 != null && list2 != null) {
             if (list1.value < list2.value) {
                 tail.next = list1;
@@ -220,26 +218,26 @@ public class LL {
             dummyHead = dummyHead.next;
             return dummyHead;
         }
-        public Node reverseList(Node head) {
+        public ListNode reverseList(ListNode head) {
         if(head == null ||  head.next == null){
             return head;
         }
-        reverseList(head.next);
+        ListNode newHead = reverseList(head.next);
         head.next.next = head;
         head.next = null;
 
-        return head;
+        return newHead;
     }
-//    public Node sortList(Node list1){
+//    public ListNode sortList(ListNode list1){
 //        if(list1 == null || list1.next == null){
 //            return list1;
 //        }
-//        Node mid = getMiddle(list1);
-//        Node left = sortList(list1);
-//        Node right = sortList(mid);
+//        ListNode mid = getMiddle(list1);
+//        ListNode left = sortList(list1);
+//        ListNode right = sortList(mid);
 //        return merge(left, right);
 //    }
-//    public void reverseList(Node head, Node tail){
+//    public void reverseList(ListNode head, ListNode tail){
 //        if(head == tail){
 //            return;
 //        }
@@ -248,21 +246,21 @@ public class LL {
 //        tail = head;
 //        tail.next = null;
 //    }
-    public Node reverseBetween(Node head, int left, int right) {
-        Node dummyHead = new Node();
+    public ListNode reverseBetween(ListNode head, int left, int right) {
+        ListNode dummyHead = new ListNode();
         dummyHead.next = head;
 
-        Node leftPrev = dummyHead;
-        Node curr = head;
+        ListNode leftPrev = dummyHead;
+        ListNode curr = head;
 
         for(int i = 0; i < left - 1;i++){
             leftPrev = curr;
             curr = curr.next;
         }
 
-        Node prev = null;
+        ListNode prev = null;
         for(int i = 0; i < right - left + 1; i++){
-            Node temp = curr.next;
+            ListNode temp = curr.next;
             curr.next = prev;
             prev = curr;
             curr = temp;
@@ -272,11 +270,11 @@ public class LL {
         return dummyHead.next;
     }
 
-    public Node getNode(Node head, int left) {
+    public ListNode getNode(ListNode head, int left) {
         if (head == null || head.next == null) {
             return head;
         }
-        Node temp = head;
+        ListNode temp = head;
         int count = 1;
         while (temp.next != null && count < left) {
             temp = temp.next;
@@ -284,9 +282,9 @@ public class LL {
         }
         return temp;
     }
-    public Node getMiddle(Node head){
-        Node slow = head;
-        Node fast = head;
+    public ListNode getMiddle(ListNode head){
+        ListNode slow = head;
+        ListNode fast = head;
         while (fast != null && fast.next != null){
             slow = slow.next;
             fast = fast.next.next;
@@ -294,19 +292,19 @@ public class LL {
         return slow;
     }
 
-    public Node reverseListRecursivley(Node head) {
+    public ListNode reverseListRecursivley(ListNode head) {
         if(head == null ||  head.next == null){
             return head;
         }
-        Node newHead  = reverseListRecursivley(head.next);
+        ListNode newHead  = reverseListRecursivley(head.next);
         head.next.next = head;
         head.next = null;
         return  newHead;
     }
-    public boolean isPalindrome(Node head){
-        Node middle = getMiddle(head);
-        Node secondHead = reverseListRecursivley(middle);
-        Node reversereverseHead = secondHead;
+    public boolean isPalindrome(ListNode head){
+        ListNode middle = getMiddle(head);
+        ListNode secondHead = reverseListRecursivley(middle);
+        ListNode reversereverseHead = secondHead;
 
         while (head != null && secondHead != null){
             if(head.value != secondHead.value){
@@ -319,19 +317,19 @@ public class LL {
         return true;
     }
 
-    public Node returnSecondead(Node head){
-        Node middle = getMiddle(head);
-        Node dummyHead = new Node();
+    public ListNode returnSecondead(ListNode head){
+        ListNode middle = getMiddle(head);
+        ListNode dummyHead = new ListNode();
         dummyHead.next = head;
-        Node leftPrev = dummyHead;
-        Node curr = head;
+        ListNode leftPrev = dummyHead;
+        ListNode curr = head;
         while (curr != middle){
             leftPrev = curr;
             curr = curr.next;
         }
-        Node prev = null;
+        ListNode prev = null;
         while (curr != null){
-            Node temp = curr.next;
+            ListNode temp = curr.next;
             curr.next = prev;
             prev = curr;
             curr = temp;
@@ -339,17 +337,17 @@ public class LL {
         leftPrev.next = prev;
         return prev;
     }
-    public void  reorderList(Node head){
-//        Node mid = getMiddle(head);
-        Node SecondHead = returnSecondead(head);
-        Node dummyHead = SecondHead;
-        Node firstHead = head;
+    public void  reorderList(ListNode head){
+//        ListNode mid = getMiddle(head);
+        ListNode SecondHead = returnSecondead(head);
+        ListNode dummyHead = SecondHead;
+        ListNode firstHead = head;
 
         while (firstHead != null && SecondHead != null){
 
-            Node temp1 = firstHead.next;
+            ListNode temp1 = firstHead.next;
 
-            Node temp2 = SecondHead.next;
+            ListNode temp2 = SecondHead.next;
 
             firstHead.next = SecondHead;
             firstHead = temp1;
@@ -361,22 +359,22 @@ public class LL {
         }
     }
 
-    public Node reverseBetweenKunal(Node head, int left, int right){
+    public ListNode reverseBetweenKunal(ListNode head, int left, int right){
         if(left == right){
             return head;
         }
-        Node leftPrev = null;
-        Node curr = head;
+        ListNode leftPrev = null;
+        ListNode curr = head;
 
         for(int i = 0; i < left - 1; i++){
             leftPrev = curr;
             curr = curr.next;
         }
-        Node newEnd = curr;
+        ListNode newEnd = curr;
 
 
-        Node prev = null;
-        Node next = curr.next;
+        ListNode prev = null;
+        ListNode next = curr.next;
         for(int i = 0; i < right - left + 1; i++){
             curr.next = prev;
             prev = curr;
@@ -394,7 +392,7 @@ public class LL {
         newEnd.next = curr;
         return head;
     }
-    boolean checkCotnainsKItems(Node node, int k) {
+    boolean checkCotnainsKItems(ListNode node, int k) {
         for(int i = 0; i < k; i++){
             if(node != null){
                 node = node.next;
@@ -406,21 +404,21 @@ public class LL {
         }
         return true;
     }
-    public Node reverseKGroup(Node head, int k){
+    public ListNode reverseKGroup(ListNode head, int k){
         if(k<=1 || head == null){
             return head;
         }
-        Node curr = head;
-        Node prev = null;
+        ListNode curr = head;
+        ListNode prev = null;
         boolean ans = true;
 
         while (checkCotnainsKItems(curr, k)){
-            Node temp = curr;
+            ListNode temp = curr;
 
 
-            Node newLast = curr;
-            Node last = prev;
-            Node next = curr.next;
+            ListNode newLast = curr;
+            ListNode last = prev;
+            ListNode next = curr.next;
             for(int i = 0; i < k; i++){
                 curr.next = prev;
                 prev = curr;
@@ -449,11 +447,11 @@ public class LL {
         return head;
     }
 
-    public Node rotateRight(Node head, int k) {
+    public ListNode rotateRight(ListNode head, int k) {
        if(k <= 0  || head == null || head.next == null){
            return head;
        }
-       Node temp = head;
+       ListNode temp = head;
        int len = 1;
        while (temp.next != null){
            temp = temp.next;
@@ -462,7 +460,7 @@ public class LL {
        temp.next = head;
        int rotations = k % len;
        int skip = len - rotations;
-       Node last = head.next;
+       ListNode last = head.next;
        for(int i = 0; i < skip - 1; i++){
            last = last.next;
        }
@@ -470,7 +468,78 @@ public class LL {
        last.next = null;
         return head;
     }
+    public void reorderList1(ListNode head) {
+        if (head == null || head.next == null) {
+            return;
+        }
 
+        ListNode mid = getMiddle1(head);
+        ListNode hs = reverseList1(mid);
+        ListNode hf = head;
+
+        // Merging the two halves
+        while (hf != null && hs != null) {
+            ListNode temp = hf.next;
+            hf.next = hs;
+            hf = temp;
+
+            temp = hs.next;
+            hs.next = hf;
+            hs = temp;
+        }
+        if(hf != null){
+            hf.next = null;
+        }
+    }
+
+    private ListNode reverseList1(ListNode head) {
+        ListNode prev = null;
+        ListNode current = head;
+        while (current != null) {
+            ListNode next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        return prev;
+    }
+
+    private ListNode getMiddle1(ListNode head) {
+        ListNode slow = head, fast = head;
+//        ListNode prev = null;
+
+        while (fast != null && fast.next != null) {
+//            prev = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+    public ListNode mergeKLists(ListNode[] lists) {
+        if(lists == null || lists.length == 0){
+            return null;
+        }
+        PriorityQueue<ListNode> queue = new PriorityQueue<>(Comparator.comparingInt(n -> n.value));
+        for(ListNode i : lists){
+            if(i != null){
+                queue.add(i);
+            }
+        }
+
+        ListNode newHead = new ListNode();
+        ListNode tail = newHead;
+
+        while(!queue.isEmpty()){
+            ListNode temp = queue.poll();
+            tail.next = temp;
+            tail = temp;
+
+            if(temp.next != null){
+                queue.add(temp.next);
+            }
+        }
+        return newHead.next;
+    }
 
 }
 
